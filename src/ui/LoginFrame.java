@@ -3,6 +3,7 @@ package ui;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -13,10 +14,21 @@ import javax.swing.JMenuItem;
 import java.awt.GridLayout;
 import javax.swing.JTabbedPane;
 import java.awt.Color;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import java.awt.Font;
 
 public class LoginFrame extends JFrame {
 
 	private JPanel contentPane;
+	private JLabel nameLabel;
+	private JLabel pwdLabel;
+	private JTextField nametextField;
+	private JTextField pwdtextField;
+	private JPanel imgPanel;
+	private JLabel imgLabel;
+	private JLabel lblNetpower;
+	private JLabel lblPoweredByNetpower;
 
 	/**
 	 * Launch the application.
@@ -30,44 +42,50 @@ public class LoginFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public LoginFrame() {
-		setTitle("邮件服务器 by NetPower");
+		setTitle("MailServer");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 900, 660);
-		
-		JMenuBar menuBar = new JMenuBar();
-		setJMenuBar(menuBar);
-		
-		JMenu menu = new JMenu("\u6587\u4EF6");
-		menuBar.add(menu);
-		
-		JMenuItem menuItem = new JMenuItem("\u9000\u51FA");
-		menu.add(menuItem);
-		
-		JMenu menu_1 = new JMenu("\u5E2E\u52A9");
-		menuBar.add(menu_1);
-		
-		JMenuItem menuItem_1 = new JMenuItem("\u5173\u4E8E\u90AE\u7BB1\u670D\u52A1\u5668");
-		menu_1.add(menuItem_1);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(0, 0, 874, 29);
-		contentPane.add(tabbedPane);
+		nameLabel = new JLabel("用户名：");
+		nameLabel.setBounds(311, 260, 54, 15);
+		contentPane.add(nameLabel);
 		
-		JPanel panel = new JPanel();
-		tabbedPane.addTab("控制面板", null, panel, null);
+		nametextField = new JTextField();
+		nametextField.setBounds(375, 257, 167, 21);
+		contentPane.add(nametextField);
+		nametextField.setColumns(10);
 		
-		JPanel panel_1 = new JPanel();
-		tabbedPane.addTab("用户管理", null, panel_1, null);
+		pwdLabel = new JLabel("密码：");
+		pwdLabel.setBounds(311, 300, 54, 15);
+		contentPane.add(pwdLabel);
 		
-		JPanel panel_2 = new JPanel();
-		tabbedPane.addTab("日志管理", null, panel_2, null);
+		pwdtextField = new JTextField();
+		pwdtextField.setBounds(375, 297, 167, 21);
+		contentPane.add(pwdtextField);
+		pwdtextField.setColumns(10);
 		
-		JPanel panel_3 = new JPanel();
-		tabbedPane.addTab("系统管理", null, panel_3, null);
+		imgPanel = new JPanel();
+		imgPanel.setBounds(375, 60, 89, 82);
+		contentPane.add(imgPanel);
+		
+		imgLabel = new JLabel();
+		ImageIcon img = new ImageIcon("img\\2.png");//创建图片对象
+		imgLabel.setIcon(img);
+		imgPanel.add(imgLabel);
+		
+		lblNetpower = new JLabel("Welcome to MailServer");
+		lblNetpower.setFont(new Font("Footlight MT Light", Font.PLAIN, 30));
+		lblNetpower.setBounds(284, 152, 307, 31);
+		contentPane.add(lblNetpower);
+		
+		lblPoweredByNetpower = new JLabel("Powered By NetPower&Apache James");
+		lblPoweredByNetpower.setFont(new Font("Footlight MT Light", Font.PLAIN, 20));
+		lblPoweredByNetpower.setBounds(530, 542, 323, 31);
+		contentPane.add(lblPoweredByNetpower);
 		
 		
 	}
