@@ -23,6 +23,7 @@ import java.awt.Color;
 import javax.swing.JSeparator;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 
 public class MainFrame extends JFrame {
 
@@ -110,93 +111,101 @@ public class MainFrame extends JFrame {
 		 * IP地址部分
 		 */
 		lblIp = new JLabel("IP地址");
-		lblIp.setBounds(24, 39, 54, 15);
+		lblIp.setBounds(70, 39, 54, 15);
 		contentPane.add(lblIp);
 		
-		lblmailserver = new JLabel("欢迎使用MailServer，版本号1.0");
-		lblmailserver.setBounds(64, 64, 277, 15);
+		lblmailserver = new JLabel("欢迎使用MailServer，版本号v1.0");
+		lblmailserver.setBounds(154, 64, 277, 15);
 		contentPane.add(lblmailserver);
 		
-		lblip = new JLabel("服务器当前IP地址");
-		lblip.setBounds(64, 109, 114, 15);
+		lblip = new JLabel("服务器当前IP地址:");
+		lblip.setBounds(154, 109, 114, 15);
 		contentPane.add(lblip);
 		
 		IPtextField = new JTextField();
-		IPtextField.setBounds(176, 106, 93, 21);
+		IPtextField.setEditable(false);
+		IPtextField.setBackground(UIManager.getColor("Button.background"));
+		IPtextField.setBounds(278, 106, 114, 21);
 		contentPane.add(IPtextField);
 		IPtextField.setColumns(10);
 		
-		lblPort = new JLabel("服务器当前端口");
-		lblPort.setBounds(300, 109, 114, 15);
+		lblPort = new JLabel("服务器当前端口:");
+		lblPort.setBounds(154, 160, 114, 15);
 		contentPane.add(lblPort);
 		
 		PorttextField = new JTextField();
-		PorttextField.setBounds(420, 106, 93, 21);
+		PorttextField.setBounds(278, 157, 114, 21);
 		contentPane.add(PorttextField);
 		PorttextField.setColumns(10);
 		
 		refreshButton=new JButton();
-		refreshButton.setBounds(600, 106, 93, 21);
+		refreshButton.setBounds(469, 106, 93, 21);
 		refreshButton.setText("刷新IP");
 		contentPane.add(refreshButton);
 		
 		startButton=new JButton();
-		startButton.setBounds(700, 106, 100, 21);
+		startButton.setBounds(646, 61, 100, 21);
 		startButton.setText("启动服务器");
 		contentPane.add(startButton);
 		
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(10, 155, 864, 2);
+		separator.setBounds(10, 223, 864, 2);
 		contentPane.add(separator);
 		
 		/**
 		 * SMTP协议部分
 		 */
 		lblsmtp=new JLabel("SMTP协议");
-		lblsmtp.setBounds(24, 160, 60, 15);
+		lblsmtp.setBounds(64, 253, 60, 15);
 		contentPane.add(lblsmtp);
 		
-		lblsmtpstate=new JLabel("SMTP协议状态");
-		lblsmtpstate.setBounds(64, 184, 114, 15);
+		lblsmtpstate=new JLabel("SMTP协议状态:");
+		lblsmtpstate.setBounds(154, 313, 114, 15);
 		contentPane.add(lblsmtpstate);
 		
 		smtpstateTextField=new JTextField();
-		smtpstateTextField.setBounds(176, 184, 93, 21);
+		smtpstateTextField.setEditable(false);
+		smtpstateTextField.setBounds(278, 310, 114, 21);
 		//smtpstateTextField.setBackground();
 		contentPane.add(smtpstateTextField);
 		smtpstateTextField.setColumns(10);
 		
 		startSMTPButton=new JButton();
-		startSMTPButton.setBounds(300, 184, 120, 21);
+		startSMTPButton.setBounds(646, 310, 120, 21);
 		startSMTPButton.setText("启动SMTP协议");
 		contentPane.add(startSMTPButton);
 		
 		JSeparator separator_1 = new JSeparator();
-		separator_1.setBounds(10, 250, 864, 2);
+		separator_1.setBounds(10, 382, 864, 2);
 		contentPane.add(separator_1);
 		
 		/**
 		 * POP3协议
 		 */
 		lblpop=new JLabel("POP3协议");
-		lblpop.setBounds(24, 300, 60, 15);
+		lblpop.setBounds(64, 416, 60, 15);
 		contentPane.add(lblpop);
 		
-		lblpopstate=new JLabel("POP3协议状态");
-		lblpopstate.setBounds(64, 324, 114, 15);
+		lblpopstate=new JLabel("POP3协议状态:");
+		lblpopstate.setBounds(154, 473, 114, 15);
 		contentPane.add(lblpopstate);
 		
 		popstateTextField=new JTextField();
-		popstateTextField.setBounds(176, 324, 93, 21);
+		popstateTextField.setEditable(false);
+		popstateTextField.setBounds(278, 470, 114, 21);
 		//smtpstateTextField.setBackground();
 		contentPane.add(popstateTextField);
 		popstateTextField.setColumns(10);
 		
 		startPOPButton=new JButton();
-		startPOPButton.setBounds(300, 324, 120, 21);
+		startPOPButton.setBounds(646, 470, 120, 21);
 		startPOPButton.setText("启动POP3协议");
 		contentPane.add(startPOPButton);
+		
+		JButton button = new JButton("\u786E\u8BA4\u4FEE\u6539\u7AEF\u53E3");
+		button.setBounds(469, 156, 114, 23);
+		contentPane.add(button);
 
 		
 		
