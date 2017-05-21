@@ -1,4 +1,4 @@
-package entity;
+package method;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,7 +16,8 @@ public class KillPortMethod {
 	 
 	public static void main(String[] args){
 		KillPortMethod test=new KillPortMethod(4555);
-		test.start();
+		//test.start();
+		System.out.println(test.haveProcess(4555));
 
 	}
 
@@ -30,7 +31,24 @@ public class KillPortMethod {
 			killPort(port);
 		}
 	}
-	
+	public Boolean haveProcess(Integer port){
+		try {
+			String cmd="cmd /c netstat -aon|findstr \""+port+"\"";
+			Process p;
+			p = Runtime.getRuntime().exec(cmd);
+			InputStream inputStream = p.getInputStream();
+			List<String> read = read(inputStream, "UTF-8");
+			if(read.size() == 0){
+				return false;
+			}else{
+				return true;
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null; 
+	}
 	private static void killPort(Integer port) {
 		// TODO Auto-generated method stub
 
@@ -42,7 +60,7 @@ public class KillPortMethod {
 			List<String> read = read(inputStream, "UTF-8");
 		
 			if(read.size() == 0){
-				System.out.println("ÕÒ²»µ½¸Ã¶Ë¿ÚµÄ½ø³Ì");
+				System.out.println("æ‰¾ä¸åˆ°è¯¥ç«¯å£çš„è¿›ç¨‹");
 				try {
 					Thread.sleep(6000);
 					System.exit(0);
@@ -53,7 +71,7 @@ public class KillPortMethod {
 				for (String string : read) {
 					System.out.println(string);
 				}
-				System.out.println("ÕÒµ½"+read.size()+"¸ö½ø³Ì£¬ÕıÔÚ×¼±¸ÇåÀí");
+				System.out.println("æ‰¾åˆ°"+read.size()+"ä¸ªè¿›ç¨‹ï¼Œæ­£åœ¨å‡†å¤‡æ¸…ç†");
 				kill(read);
 			}
         } catch (IOException e) {
@@ -73,7 +91,7 @@ public class KillPortMethod {
 			 try {
 				 pid = Integer.parseInt(spid);
 			 } catch (NumberFormatException e) {
-				 System.out.println("»ñÈ¡µÄ½ø³ÌºÅ´íÎó:" + spid);
+				 System.out.println("è·å–çš„è¿›ç¨‹å·é”™è¯¯:" + spid);
 			 }
 			 pids.add(pid);
 		 }
@@ -111,10 +129,7 @@ public class KillPortMethod {
 		 List<String> data = new ArrayList<>();
 		 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, charset));
 		 String line;
-		 System.out.println("@@@");
 		 while((line = reader.readLine()) != null){
-			 System.out.println("###");
-			 System.out.println(line);
 			 boolean validPort = validPort(line);
 			 if(validPort){
 				 data.add(line);
@@ -138,7 +153,7 @@ public class KillPortMethod {
         try {
             port = Integer.parseInt(find);
         } catch (NumberFormatException e) {
-            System.out.println("²éÕÒµ½´íÎóµÄ¶Ë¿Ú:" + find);
+            System.out.println("æŸ¥æ‰¾åˆ°é”™è¯¯çš„ç«¯å£:" + find);
             return false;
         }
         if(ports.contains(port)){

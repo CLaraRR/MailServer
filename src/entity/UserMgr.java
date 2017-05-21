@@ -1,25 +1,35 @@
 package entity;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
 
+import org.apache.james.security.DigestUtil;
+
 import db.DBBean;
 import entity.User;
+import method.XMLHelper;
 
 public class UserMgr {
 	private HashMap<String, User> userList;
-
-	public UserMgr() {
+	private XMLHelper xmlHelper;
+	
+	
+	public UserMgr(){
 		super();
+	}
+	public UserMgr(String configFile) {
+//		super();
+		xmlHelper=new XMLHelper(configFile);
 	}
 
 
 	
 	/**
-	 * µÃµ½ËùÓĞÓÃ»§µÄÁĞ±í
+	 * å¾—åˆ°æ‰€æœ‰ç”¨æˆ·çš„åˆ—è¡¨
 	 * 
 	 * @return
 	 */
@@ -50,25 +60,47 @@ public class UserMgr {
 		return rset;
 	}
 	
-	//Ìí¼ÓÓÃ»§
+	//æ·»åŠ ç”¨æˆ·
 	public int addUser(User newUser) {
 		int result = 0; //
-		if (findUser(newUser)) {//ÏÈ²éÕÒÓĞÃ»ÓĞÕâ¸öÓÃ»§¡£µ÷ÓÃÏÂÃæµÄfindUserº¯Êı
+		if (findUser(newUser)) {//å…ˆæŸ¥æ‰¾æœ‰æ²¡æœ‰è¿™ä¸ªç”¨æˆ·ã€‚è°ƒç”¨ä¸‹é¢çš„findUserå‡½æ•°
 			result = 1; //
 		} else {
-			String sql = "insert into users(username,pwdHash)values('"
-					+ newUser.getUsername()
-					+ "','"
-					+ newUser.getPsw() + "')";
+			if(newUser.getUsertype()==0){
+				//å¦‚æœæ˜¯æ™®é€šç”¨æˆ·å°±æ’å…¥åˆ°æ•°æ®åº“
+				//é¦–å…ˆè¦æŠŠæ˜æ–‡å¯†ç è½¬æ¢æˆå¯†æ–‡ï¼Œæ‰èƒ½å­˜åˆ°æ•°æ®åº“ä¸­
+				String pwdHash=null;
+				try {
+					pwdHash = DigestUtil.digestString(newUser.getPsw(), "SHA");
+					System.out.println(pwdHash);
+				} catch (NoSuchAlgorithmException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				String sql = "insert into users(username,pwdHash,pwdAlgorithm,useForwarding,"
+						+ "useAlias)values('"
+						+ newUser.getUsername()
+						+ "','"+ pwdHash 
+						+ "','"+"SHA"
+						+ "','"+"0"
+						+ "','"+"0"
+						+"')";
 
-			if (DBBean.update(sql)) {//¸üĞÂÊı¾İ¿â¼ÇÂ¼
-				result = 2; //
+				if (DBBean.update(sql)) {//æ›´æ–°æ•°æ®åº“è®°å½•
+					result = 2; //
+				}
+			}else if(newUser.getUsertype()==1){
+				//å¦‚æœæ˜¯ç®¡ç†å‘˜å°±æ’å…¥åˆ°é…ç½®æ–‡ä»¶ä¸­
+				
+				xmlHelper.addAdministrator(newUser.getUsername(),newUser.getPsw());
+				
 			}
+			
 		}
 		return result;
 	}
 	
-	//²é¿´Êı¾İ¿âÖĞÊÇ·ñÒÑÓĞ¼ÇÂ¼
+	//æŸ¥çœ‹æ•°æ®åº“ä¸­æ˜¯å¦å·²æœ‰è®°å½•
 	public boolean findUser(User user) {
 		boolean result = false;
 		
@@ -79,7 +111,7 @@ public class UserMgr {
 		return result;
 	}
 	
-	//É¾³ıÓÃ»§
+	//åˆ é™¤ç”¨æˆ·
 	public boolean deleteUser(String username) {
 		boolean result = false;
 		String sql = "delete from users where username =('" + username

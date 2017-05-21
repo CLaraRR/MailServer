@@ -1,6 +1,8 @@
 package ui;
 
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -14,142 +16,197 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
+import entity.User;
+import entity.UserMgr;
 import ui.CreatExcel;
 
-public class UserPanel {
+public class UserPanel implements ActionListener{
 	private JPanel detailPanel;
 	private CreatExcel userExcel;
+	private JTextField textFieldUsername;
+	private JTextField textFieldPwd;
+	private JComboBox<String> comboBox;
+	private UserMgr userMgr;
+	private String configFile;
 	public UserPanel(MainFrame mainFrame) {
 		// TODO Auto-generated constructor stub
 		detailPanel = mainFrame.getDetatilPanel();
+		configFile="E:/james-binary-2.3.2.1/james-2.3.2.1/apps/james/SAR-INF/config.xml";
+		userMgr=new UserMgr(configFile);
 	}
 
 	public void setDetailPanel(JPanel detailPanel) {
 		// TODO Auto-generated method stub
 		detailPanel.removeAll();
-		setTablePanel(detailPanel);//±í¸ñÃæ°å
-		setOperationPanel(detailPanel); //²Ù×÷Ãæ°å
-		setQueryPanel(detailPanel); //²éÑ¯Ãæ°å
+		setTablePanel(detailPanel);//è¡¨æ ¼é¢æ¿
+		setOperationPanel(detailPanel); //æ“ä½œé¢æ¿
+		setQueryPanel(detailPanel); //æŸ¥è¯¢é¢æ¿
 		
 		
 	}
 
 	
 	/**
-	 * ËÑË÷ÓÃ»§Ãæ°å
+	 * æœç´¢ç”¨æˆ·é¢æ¿
 	 */
 	private void setQueryPanel(JPanel detailPanel) {
 		// TODO Auto-generated method stub
 
-		JLabel label_4 = new JLabel("ËÑË÷ÓÃ»§");
-		label_4.setFont(new Font("ºÚÌå", Font.BOLD, 16));
-		label_4.setBounds(514, 354, 86, 23);
-		detailPanel.add(label_4);
+		JLabel labelQuery = new JLabel("æœç´¢ç”¨æˆ·");
+		labelQuery.setFont(new Font("é»‘ä½“", Font.BOLD, 16));
+		labelQuery.setBounds(514, 354, 86, 23);
+		detailPanel.add(labelQuery);
 		
-		JLabel label_5 = new JLabel("ÇëÊäÈëÒª²éÑ¯µÄÓÃ»§£º");
-		label_5.setFont(new Font("ºÚÌå", Font.PLAIN, 14));
-		label_5.setBounds(514, 414, 157, 15);
-		detailPanel.add(label_5);
+		JLabel labelQ = new JLabel("è¯·è¾“å…¥è¦æŸ¥è¯¢çš„ç”¨æˆ·ï¼š");
+		labelQ.setFont(new Font("é»‘ä½“", Font.PLAIN, 14));
+		labelQ.setBounds(514, 414, 157, 15);
+		detailPanel.add(labelQ);
 		
-		JTextField textField_2 = new JTextField();
-		textField_2.setBounds(671, 406, 203, 31);
-		detailPanel.add(textField_2);
-		textField_2.setColumns(10);
+		JTextField textFieldQuery = new JTextField();
+		textFieldQuery.setBounds(514, 449, 246, 31);
+		detailPanel.add(textFieldQuery);
+		textFieldQuery.setColumns(10);
 		
-		JButton button_4 = new JButton("²éÑ¯");
-		button_4.setFont(new Font("ºÚÌå", Font.PLAIN, 14));
-		button_4.setBounds(543, 481, 93, 23);
-		detailPanel.add(button_4);
+		JButton buttonQuery = new JButton("æŸ¥è¯¢");
+		buttonQuery.setFont(new Font("é»‘ä½“", Font.PLAIN, 14));
+		buttonQuery.setBounds(781, 453, 93, 23);
+		detailPanel.add(buttonQuery);
 		
-		JButton button_5 = new JButton("Ë¢ĞÂ±íµ¥");
-		button_5.setFont(new Font("ºÚÌå", Font.PLAIN, 14));
-		button_5.setBounds(724, 481, 93, 23);
-		detailPanel.add(button_5);
+		JButton buttonRefresh = new JButton("åˆ·æ–°è¡¨å•");
+		buttonRefresh.setFont(new Font("é»‘ä½“", Font.PLAIN, 14));
+		buttonRefresh.setBounds(514, 10, 93, 23);
+		detailPanel.add(buttonRefresh);
 		
 	}
 
 	
 	/**
-	 * ÉèÖÃ²Ù×÷Ãæ°å
+	 * è®¾ç½®æ“ä½œé¢æ¿
 	 */
 	private void setOperationPanel(JPanel detailPanel) {
 		// TODO Auto-generated method stub
 
-		JLabel label = new JLabel("²Ù×÷");
-		label.setFont(new Font("ºÚÌå", Font.BOLD, 16));
-		label.setBounds(514, 42, 54, 23);
-		detailPanel.add(label);
+		JLabel labelOpr = new JLabel("æ“ä½œ");
+		labelOpr.setFont(new Font("é»‘ä½“", Font.BOLD, 16));
+		labelOpr.setBounds(514, 42, 54, 23);
+		detailPanel.add(labelOpr);
 		
-		JLabel label_1 = new JLabel("ÓÃ»§Ãû£º");
-		label_1.setFont(new Font("ºÚÌå", Font.PLAIN, 14));
-		label_1.setBounds(533, 99, 67, 15);
-		detailPanel.add(label_1);
+		JLabel labelUsername = new JLabel("ç”¨æˆ·åï¼š");
+		labelUsername.setFont(new Font("é»‘ä½“", Font.PLAIN, 14));
+		labelUsername.setBounds(533, 99, 67, 15);
+		detailPanel.add(labelUsername);
 		
-		JTextField textField = new JTextField();
-		textField.setBounds(610, 91, 231, 31);
-		detailPanel.add(textField);
-		textField.setColumns(10);
+		textFieldUsername = new JTextField();
+		textFieldUsername.setBounds(610, 91, 231, 31);
+		detailPanel.add(textFieldUsername);
+		textFieldUsername.setColumns(10);
 		
-		JLabel label_2 = new JLabel("ÃÜÂë£º");
-		label_2.setFont(new Font("ºÚÌå", Font.PLAIN, 14));
-		label_2.setBounds(533, 154, 67, 15);
-		detailPanel.add(label_2);
+		JLabel labelPwd = new JLabel("å¯†ç ï¼š");
+		labelPwd.setFont(new Font("é»‘ä½“", Font.PLAIN, 14));
+		labelPwd.setBounds(533, 154, 67, 15);
+		detailPanel.add(labelPwd);
 		
-		JTextField textField_1 = new JTextField();
-		textField_1.setBounds(610, 146, 231, 31);
-		detailPanel.add(textField_1);
-		textField_1.setColumns(10);
+		textFieldPwd = new JTextField();
+		textFieldPwd.setBounds(610, 146, 231, 31);
+		detailPanel.add(textFieldPwd);
+		textFieldPwd.setColumns(10);
 		
-		JLabel label_3 = new JLabel("×´Ì¬£º");
-		label_3.setFont(new Font("ºÚÌå", Font.PLAIN, 14));
-		label_3.setBounds(533, 211, 67, 15);
-		detailPanel.add(label_3);
+		JLabel labelState = new JLabel("çŠ¶æ€ï¼š");
+		labelState.setFont(new Font("é»‘ä½“", Font.PLAIN, 14));
+		labelState.setBounds(533, 211, 67, 15);
+		detailPanel.add(labelState);
 		
-		JComboBox<String> comboBox = new JComboBox<String>();
-		comboBox.setFont(new Font("ºÚÌå", Font.PLAIN, 14));
-		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"ÓÃ»§", "¹ÜÀíÔ±"}));
+		comboBox = new JComboBox<String>();
+		comboBox.setFont(new Font("é»‘ä½“", Font.PLAIN, 14));
+		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"ç”¨æˆ·", "ç®¡ç†å‘˜"}));
 		comboBox.setBounds(610, 203, 231, 31);
 		detailPanel.add(comboBox);
 		
-		JButton button = new JButton("Ìí¼Ó");
-		button.setFont(new Font("ºÚÌå", Font.PLAIN, 14));
-		button.setBounds(543, 284, 67, 23);
-		detailPanel.add(button);
+		JButton buttonAdd = new JButton("æ·»åŠ ");
+		buttonAdd.setFont(new Font("é»‘ä½“", Font.PLAIN, 14));
+		buttonAdd.setBounds(543, 284, 67, 23);
+		buttonAdd.setActionCommand("add");
+		buttonAdd.addActionListener(this);
+		detailPanel.add(buttonAdd);
 		
-		JButton button_1 = new JButton("¸ü¸Ä");
-		button_1.setFont(new Font("ºÚÌå", Font.PLAIN, 14));
-		button_1.setBounds(631, 284, 67, 23);
-		detailPanel.add(button_1);
+		JButton buttonEdit = new JButton("æ›´æ”¹");
+		buttonEdit.setFont(new Font("é»‘ä½“", Font.PLAIN, 14));
+		buttonEdit.setBounds(631, 284, 67, 23);
+		buttonEdit.setActionCommand("edit");
+		buttonEdit.addActionListener(this);
+		detailPanel.add(buttonEdit);
 		
-		JButton button_2 = new JButton("É¾³ı");
-		button_2.setFont(new Font("ºÚÌå", Font.PLAIN, 14));
-		button_2.setBounds(724, 284, 67, 23);
-		detailPanel.add(button_2);
+		JButton buttonDel = new JButton("åˆ é™¤");
+		buttonDel.setFont(new Font("é»‘ä½“", Font.PLAIN, 14));
+		buttonDel.setBounds(724, 284, 67, 23);
+		buttonDel.setActionCommand("del");
+		buttonDel.addActionListener(this);
+		detailPanel.add(buttonDel);
 		
-		JButton button_3 = new JButton("Çå¿Õ");
-		button_3.setFont(new Font("ºÚÌå", Font.PLAIN, 14));
-		button_3.setBounds(807, 284, 67, 23);
-		detailPanel.add(button_3);
+		JButton buttonClear = new JButton("æ¸…ç©º");
+		buttonClear.setFont(new Font("é»‘ä½“", Font.PLAIN, 14));
+		buttonClear.setBounds(807, 284, 67, 23);
+		buttonClear.setActionCommand("clear");
+		buttonClear.addActionListener(this);
+		detailPanel.add(buttonClear);
 		
 	}
 
 	
 	/**
-	 * ÉèÖÃ±í¸ñÃæ°å
+	 * è®¾ç½®è¡¨æ ¼é¢æ¿
 	 */
 	private void setTablePanel(JPanel detailPanel) {
 		// TODO Auto-generated method stub
 		
-		JLabel userLbael=new JLabel("ÓÃ»§ÁĞ±í");
+		JLabel userLbael=new JLabel("ç”¨æˆ·åˆ—è¡¨");
 		userLbael.setBounds(5, 5, 54, 15);
 		detailPanel.add(userLbael);
-		final DefaultTableModel JTableModel = new DefaultTableModel();	//¶¨Òå±í¸ñÄ£°å£¬model¸ºÔğÊı¾İ´¦Àí
-		JTable ShowTable=new JTable(JTableModel);		//¶¨Òå±í¸ñ£¬tabelÖ»¸ºÔğÊı¾İÏÔÊ¾
-		JScrollPane jspShow=new JScrollPane(ShowTable);	//¹ö¶¯Ãæ°å
+		final DefaultTableModel JTableModel = new DefaultTableModel();	//å®šä¹‰è¡¨æ ¼æ¨¡æ¿ï¼Œmodelè´Ÿè´£æ•°æ®å¤„ç†
+		JTable ShowTable=new JTable(JTableModel);		//å®šä¹‰è¡¨æ ¼ï¼Œtabelåªè´Ÿè´£æ•°æ®æ˜¾ç¤º
+		JScrollPane jspShow=new JScrollPane(ShowTable);	//æ»šåŠ¨é¢æ¿
 		userExcel=new CreatExcel();
 		userExcel.Creat(0,JTableModel,ShowTable,jspShow);
 		jspShow.setBounds(0,20,500,500);
 		detailPanel.add(jspShow);
+	}
+
+	
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		String event=e.getActionCommand();
+		
+		switch(event){
+		case "add":
+			String username=textFieldUsername.getText();
+			String pwd=textFieldPwd.getText();
+			String state=(String) comboBox.getSelectedItem();
+//			System.out.println(username);
+//			System.out.println(pwd);
+//			System.out.println(state);
+			if(state.equals("ç”¨æˆ·"))
+				userMgr.addUser(new User(username,pwd,0));
+			else if(state.equals("ç®¡ç†å‘˜"))
+				userMgr.addUser(new User(username,pwd,1));
+			
+			break;
+		case "edit":
+			String username2=textFieldUsername.getText();
+			String pwd2=textFieldPwd.getText();
+			String state2=(String) comboBox.getSelectedItem();
+			
+			
+			break;
+		case "del":
+			
+			break;
+		case "clear":
+			
+			break;
+			
+		}
 	}
 	
 

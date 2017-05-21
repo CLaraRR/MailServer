@@ -1,3 +1,16 @@
 eclipse.preferences.version=1
-encoding//src/db/DBBean.java=GBK
+encoding//src/db/DBBean.java=UTF-8
+encoding//src/entity/Server.java=UTF-8
+encoding//src/entity/ServerMgr.java=UTF-8
+encoding//src/entity/User.java=UTF-8
+encoding//src/entity/UserMgr.java=UTF-8
+encoding//src/method/KillPortMethod.java=UTF-8
+encoding//src/method/XMLHelper.java=UTF-8
+encoding//src/ui/ControlPanel.java=UTF-8
 encoding//src/ui/CreatExcel.java=UTF-8
+encoding//src/ui/LogPanel.java=UTF-8
+encoding//src/ui/LoginFrame.java=UTF-8
+encoding//src/ui/MainFrame.java=UTF-8
+encoding//src/ui/SystemPanel.java=UTF-8
+encoding//src/ui/UserPanel.java=UTF-8
+encoding//src/ui/UserPanel2.java=UTF-8

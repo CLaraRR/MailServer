@@ -54,13 +54,13 @@ public class UserPanel2 extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel label = new JLabel("²Ù×÷");
-		label.setFont(new Font("ºÚÌå", Font.BOLD, 16));
+		JLabel label = new JLabel("æ“ä½œ");
+		label.setFont(new Font("é»‘ä½“", Font.BOLD, 16));
 		label.setBounds(514, 42, 54, 23);
 		contentPane.add(label);
 		
-		JLabel label_1 = new JLabel("ÓÃ»§Ãû£º");
-		label_1.setFont(new Font("ºÚÌå", Font.PLAIN, 14));
+		JLabel label_1 = new JLabel("ç”¨æˆ·åï¼š");
+		label_1.setFont(new Font("é»‘ä½“", Font.PLAIN, 14));
 		label_1.setBounds(533, 99, 67, 15);
 		contentPane.add(label_1);
 		
@@ -69,8 +69,8 @@ public class UserPanel2 extends JFrame {
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
-		JLabel label_2 = new JLabel("ÃÜÂë£º");
-		label_2.setFont(new Font("ºÚÌå", Font.PLAIN, 14));
+		JLabel label_2 = new JLabel("å¯†ç ï¼š");
+		label_2.setFont(new Font("é»‘ä½“", Font.PLAIN, 14));
 		label_2.setBounds(533, 154, 67, 15);
 		contentPane.add(label_2);
 		
@@ -79,60 +79,60 @@ public class UserPanel2 extends JFrame {
 		contentPane.add(textField_1);
 		textField_1.setColumns(10);
 		
-		JLabel label_3 = new JLabel("×´Ì¬£º");
-		label_3.setFont(new Font("ºÚÌå", Font.PLAIN, 14));
+		JLabel label_3 = new JLabel("çŠ¶æ€ï¼š");
+		label_3.setFont(new Font("é»‘ä½“", Font.PLAIN, 14));
 		label_3.setBounds(533, 211, 67, 15);
 		contentPane.add(label_3);
 		
 		JComboBox<String> comboBox = new JComboBox<String>();
-		comboBox.setFont(new Font("ºÚÌå", Font.PLAIN, 14));
-		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"ÓÃ»§", "¹ÜÀíÔ±"}));
+		comboBox.setFont(new Font("é»‘ä½“", Font.PLAIN, 14));
+		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"ç”¨æˆ·", "ç®¡ç†å‘˜"}));
 		comboBox.setBounds(610, 203, 231, 31);
 		contentPane.add(comboBox);
 		
-		JButton button = new JButton("Ìí¼Ó");
-		button.setFont(new Font("ºÚÌå", Font.PLAIN, 14));
+		JButton button = new JButton("æ·»åŠ ");
+		button.setFont(new Font("é»‘ä½“", Font.PLAIN, 14));
 		button.setBounds(543, 284, 67, 23);
 		contentPane.add(button);
 		
-		JButton button_1 = new JButton("¸ü¸Ä");
-		button_1.setFont(new Font("ºÚÌå", Font.PLAIN, 14));
+		JButton button_1 = new JButton("æ›´æ”¹");
+		button_1.setFont(new Font("é»‘ä½“", Font.PLAIN, 14));
 		button_1.setBounds(631, 284, 67, 23);
 		contentPane.add(button_1);
 		
-		JButton button_2 = new JButton("É¾³ı");
-		button_2.setFont(new Font("ºÚÌå", Font.PLAIN, 14));
+		JButton button_2 = new JButton("åˆ é™¤");
+		button_2.setFont(new Font("é»‘ä½“", Font.PLAIN, 14));
 		button_2.setBounds(724, 284, 67, 23);
 		contentPane.add(button_2);
 		
-		JButton button_3 = new JButton("Çå¿Õ");
-		button_3.setFont(new Font("ºÚÌå", Font.PLAIN, 14));
+		JButton button_3 = new JButton("æ¸…ç©º");
+		button_3.setFont(new Font("é»‘ä½“", Font.PLAIN, 14));
 		button_3.setBounds(807, 284, 67, 23);
 		contentPane.add(button_3);
 		
-		JLabel label_4 = new JLabel("ËÑË÷ÓÃ»§");
-		label_4.setFont(new Font("ºÚÌå", Font.BOLD, 16));
+		JLabel label_4 = new JLabel("æœç´¢ç”¨æˆ·");
+		label_4.setFont(new Font("é»‘ä½“", Font.BOLD, 16));
 		label_4.setBounds(514, 354, 86, 23);
 		contentPane.add(label_4);
 		
-		JLabel label_5 = new JLabel("ÇëÊäÈëÒª²éÑ¯µÄÓÃ»§£º");
-		label_5.setFont(new Font("ºÚÌå", Font.PLAIN, 14));
+		JLabel label_5 = new JLabel("è¯·è¾“å…¥è¦æŸ¥è¯¢çš„ç”¨æˆ·ï¼š");
+		label_5.setFont(new Font("é»‘ä½“", Font.PLAIN, 14));
 		label_5.setBounds(514, 414, 157, 15);
 		contentPane.add(label_5);
 		
 		textField_2 = new JTextField();
-		textField_2.setBounds(671, 406, 203, 31);
+		textField_2.setBounds(514, 449, 246, 31);
 		contentPane.add(textField_2);
 		textField_2.setColumns(10);
 		
-		JButton button_4 = new JButton("²éÑ¯");
-		button_4.setFont(new Font("ºÚÌå", Font.PLAIN, 14));
-		button_4.setBounds(543, 481, 93, 23);
+		JButton button_4 = new JButton("æŸ¥è¯¢");
+		button_4.setFont(new Font("é»‘ä½“", Font.PLAIN, 14));
+		button_4.setBounds(781, 453, 93, 23);
 		contentPane.add(button_4);
 		
-		JButton button_5 = new JButton("Ë¢ĞÂ±íµ¥");
-		button_5.setFont(new Font("ºÚÌå", Font.PLAIN, 14));
-		button_5.setBounds(724, 481, 93, 23);
+		JButton button_5 = new JButton("åˆ·æ–°è¡¨å•");
+		button_5.setFont(new Font("é»‘ä½“", Font.PLAIN, 14));
+		button_5.setBounds(514, 10, 93, 23);
 		contentPane.add(button_5);
 		
 		textField_3 = new JTextField();

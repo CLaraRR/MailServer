@@ -50,7 +50,7 @@ public class LoginFrame extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		nameLabel = new JLabel("ÓÃ»§Ãû£º");
+		nameLabel = new JLabel("ç”¨æˆ·åï¼š");
 		nameLabel.setBounds(311, 260, 54, 15);
 		contentPane.add(nameLabel);
 		
@@ -59,7 +59,7 @@ public class LoginFrame extends JFrame {
 		contentPane.add(nametextField);
 		nametextField.setColumns(10);
 		
-		pwdLabel = new JLabel("ÃÜÂë£º");
+		pwdLabel = new JLabel("å¯†ç ï¼š");
 		pwdLabel.setBounds(311, 300, 54, 15);
 		contentPane.add(pwdLabel);
 		
@@ -73,7 +73,7 @@ public class LoginFrame extends JFrame {
 		contentPane.add(imgPanel);
 		
 		imgLabel = new JLabel();
-		ImageIcon img = new ImageIcon("img\\2.png");//´´½¨Í¼Æ¬¶ÔÏó
+		ImageIcon img = new ImageIcon("img\\2.png");//åˆ›å»ºå›¾ç‰‡å¯¹è±¡
 		imgLabel.setIcon(img);
 		imgPanel.add(imgLabel);
 		

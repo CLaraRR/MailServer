@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 public class DBBean {	
 	/**
-	 * ´´½¨Êı¾İ¿âÁ¬½Ó
+	 * åˆ›å»ºæ•°æ®åº“è¿æ¥
 	 * @return
 	 */
 	public static Connection getConnection() { 
@@ -24,7 +24,7 @@ public class DBBean {
 	}
 	
 	/**
-	 * ¹Ø±ÕÊı¾İ¿âµÄÁ¬½Ó¡¢Óï¾äÒÔ¼°½á¹û¼¯µÈ×ÊÔ´
+	 * å…³é—­æ•°æ®åº“çš„è¿æ¥ã€è¯­å¥ä»¥åŠç»“æœé›†ç­‰èµ„æº
 	 * @param conn
 	 * @param stmt
 	 * @param rset
@@ -45,7 +45,7 @@ public class DBBean {
 	
 	
 	/**
-	 * ¼ì²éÊÇ·ñ´æÔÚÂú×ãSQLÓï¾äµÄ¼ÇÂ¼£¬ÔÚ´´½¨ĞÂÓÃ»§Ê±ÓÃÓÚ¼ì²éÓÃ»§ÃûÊÇ·ñÒÑ´æÔÚ
+	 * æ£€æŸ¥æ˜¯å¦å­˜åœ¨æ»¡è¶³SQLè¯­å¥çš„è®°å½•ï¼Œåœ¨åˆ›å»ºæ–°ç”¨æˆ·æ—¶ç”¨äºæ£€æŸ¥ç”¨æˆ·åæ˜¯å¦å·²å­˜åœ¨
 	 * @param SqlString
 	 * @return
 	 */
@@ -71,7 +71,7 @@ public class DBBean {
 	}
 	
 	/**
-	 * ²éÖ´ĞĞÑ¯Óï¾ä£¬·µ»Ø½á¹û¼¯
+	 * æŸ¥æ‰§è¡Œè¯¢è¯­å¥ï¼Œè¿”å›ç»“æœé›†
 	 * @param SqlString
 	 * @return
 	 */
@@ -93,7 +93,7 @@ public class DBBean {
 	}
 	
 	/**
-	 * ¸üĞÂÊı¾İ¿â¼ÇÂ¼
+	 * æ›´æ–°æ•°æ®åº“è®°å½•
 	 * @param sql
 	 * @return
 	 */
@@ -105,7 +105,7 @@ public class DBBean {
 		try {
 			conn = getConnection();
 			stmt = conn.createStatement();
-			stmt.executeUpdate(sql);//¸üĞÂ
+			stmt.executeUpdate(sql);//æ›´æ–°
 			result = true;
 		} catch (Exception e1) {
 			e1.printStackTrace();
@@ -116,7 +116,7 @@ public class DBBean {
 	}
 	
 	/**
-	 * É¾³ıÊı¾İ¿â¼ÇÂ¼
+	 * åˆ é™¤æ•°æ®åº“è®°å½•
 	 * @param sql
 	 * @return
 	 */

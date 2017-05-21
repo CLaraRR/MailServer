@@ -70,27 +70,27 @@ public class MainFrame extends JFrame implements ChangeListener {
 		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
-		menuFile = new JMenu("ÎÄ¼ş");
+		menuFile = new JMenu("æ–‡ä»¶");
 		menuBar.add(menuFile);
 		
-		JMenuItem miExit = new JMenuItem("ÍË³ö");
+		JMenuItem miExit = new JMenuItem("é€€å‡º");
 		menuFile.add(miExit);
 		
-		menuHelp = new JMenu("°ïÖú");
+		menuHelp = new JMenu("å¸®åŠ©");
 		menuBar.add(menuHelp);
 		
-		JMenuItem miAbout = new JMenuItem("¹ØÓÚÓÊ¼ş·şÎñÆ÷");
+		JMenuItem miAbout = new JMenuItem("å…³äºé‚®ä»¶æœåŠ¡å™¨");
 		menuHelp.add(miAbout);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		//Ä£¿éÑ¡ÔñÃæ°å
+		//æ¨¡å—é€‰æ‹©é¢æ¿
 		modulePanel=getModulePanel();
 		this.add(modulePanel);
 		
-		//ÓÒ²àµÄÏêÇéÃæ°å
+		//å³ä¾§çš„è¯¦æƒ…é¢æ¿
 		detailPanel = getDetatilPanel();
 		this.add(detailPanel);
 		new ControlPanel(this).setDetailPanel(detailPanel);
@@ -102,8 +102,8 @@ public class MainFrame extends JFrame implements ChangeListener {
 		});
 		miAbout.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				JOptionPane.showMessageDialog(null, "»¶Ó­Ê¹ÓÃ!"+"\n"+"Ê±¼ä:  2017/05/20"+"\n"
-					       +"MailServer","ÌáÊ¾"
+				JOptionPane.showMessageDialog(null, "æ¬¢è¿ä½¿ç”¨!"+"\n"+"æ—¶é—´:  2017/05/20"+"\n"
+					       +"MailServer","æç¤º"
 									,JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
@@ -112,23 +112,23 @@ public class MainFrame extends JFrame implements ChangeListener {
 
 	}
 	
-	// Ä£¿éÃæ°å
+	// æ¨¡å—é¢æ¿
 	private JTabbedPane getModulePanel(){
 		JTabbedPane modulePanel=new JTabbedPane();
 		modulePanel = new JTabbedPane(JTabbedPane.TOP);
 		modulePanel.setBounds(0, 0, 874, 29);
 		
 		panelControl = new JPanel();
-		modulePanel.addTab("¿ØÖÆÃæ°å", null, panelControl, null);
+		modulePanel.addTab("æ§åˆ¶é¢æ¿", null, panelControl, null);
 		
 		panelUser = new JPanel();
-		modulePanel.addTab("ÓÃ»§¹ÜÀí", null, panelUser, null);
+		modulePanel.addTab("ç”¨æˆ·ç®¡ç†", null, panelUser, null);
 		
 		panelLog = new JPanel();
-		modulePanel.addTab("ÈÕÖ¾¹ÜÀí", null, panelLog, null);
+		modulePanel.addTab("æ—¥å¿—ç®¡ç†", null, panelLog, null);
 		
 		panelSystem = new JPanel();
-		modulePanel.addTab("ÏµÍ³¹ÜÀí", null, panelSystem, null);
+		modulePanel.addTab("ç³»ç»Ÿç®¡ç†", null, panelSystem, null);
 		
 		modulePanel.addChangeListener(this);
 		return modulePanel;
@@ -136,7 +136,7 @@ public class MainFrame extends JFrame implements ChangeListener {
 	}
 	
 	
-	// ÉèÖÃÏêÇéÃæ°å
+	// è®¾ç½®è¯¦æƒ…é¢æ¿
 	public JPanel getDetatilPanel(){
 		if(detailPanel == null){
 			detailPanel = new JPanel();

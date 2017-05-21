@@ -2,26 +2,52 @@ package entity;
 
 
 /**
- * ·şÎñÆ÷×´Ì¬Àà
- * @author ÄşÈó
+ * æœåŠ¡å™¨çŠ¶æ€ç±»
+ * @author å®æ¶¦
  *
  */
 public class Server {
-	public String serverIP;//·şÎñÆ÷IP
-	public String serverPort;//·şÎñÆ÷¶Ë¿Ú
-	public Boolean isServerRun;//·şÎñÆ÷ÊÇ·ñ¿ªÆô
-	public Boolean isSMTPRun;//SMTP·şÎñÊÇ·ñ¿ªÆô
-	public Boolean isPOP3Run;//POP3·şÎñÊÇ·ñ¿ªÆô
+	public String serverIP;//æœåŠ¡å™¨IP
+	public int serverPort;//æœåŠ¡å™¨ç«¯å£
+	public Boolean isServerRun;//æœåŠ¡å™¨æ˜¯å¦å¼€å¯
+	public Boolean isSMTPRun;//SMTPæœåŠ¡æ˜¯å¦å¼€å¯
+	public Boolean isPOP3Run;//POP3æœåŠ¡æ˜¯å¦å¼€å¯
+	
+	private static Server server;
+	
+	public static Server getInstance(){
+		if(server==null){
+			return new Server();
+		}else{
+			return server;
+		}
+		
+	}
 	
 	
+	public Server(){
+		
+	}
+	public Server(String ip,int port,Boolean isServerRun,Boolean isSMTPRun,Boolean isPOP3Run){
+
+		this.serverIP=ip;
+		this.serverPort=port;
+		this.isServerRun=isServerRun;
+		this.isSMTPRun=isSMTPRun;
+		this.isPOP3Run=isPOP3Run;
+		
+	}
+	public void setServerIP(String ip){
+		this.serverIP=ip;
+	}
 	public String getServerIP(){
 		return this.serverIP;
 	}
 	
-	public void setServerPort(String port){
+	public void setServerPort(int port){
 		this.serverPort=port;
 	}
-	public String getServerPort(){
+	public int getServerPort(){
 		return this.serverPort;
 	}
 	

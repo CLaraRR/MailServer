@@ -5,6 +5,11 @@ public class User {
 	public String psw;
 	public int usertype;
 	
+	
+	public User(String username,String psw){
+		this.username=username;
+		this.psw=psw;
+	}
 	public User(String username,String psw,int type){
 		this.username=username;
 		this.psw=psw;

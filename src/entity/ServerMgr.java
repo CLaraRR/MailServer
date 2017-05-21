@@ -1,31 +1,94 @@
 package entity;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.List;
+
+import method.KillPortMethod;
+import method.XMLHelper;
 
 /**
- * ·şÎñÆ÷×´Ì¬¹ÜÀíÀà
- * @author ÄşÈó
+ * æœåŠ¡å™¨çŠ¶æ€ç®¡ç†ç±»
+ * @author å®æ¶¦
  *
  */
 public class ServerMgr {
 	
-	public void runServer(){
-		
-	}
+	public Server server;
+	private XMLHelper xmlHelper;
 	
-	public void shutdownServer(Integer port){
-		KillPortMethod kill=new KillPortMethod(port);
-		kill.start();
+	
+	
+	public ServerMgr(String configFile){
+		server=Server.getInstance();
+		xmlHelper=new XMLHelper(configFile);
 	}
 	
 	/**
-	 * »ñÈ¡±¾»úIPµØÖ·
+	 * å¯åŠ¨æœåŠ¡å™¨
+	 */
+	public void runServer(){
+		try {
+			String cmd="cmd /c start E://james-binary-2.3.2.1//james-2.3.2.1//bin//run.bat";
+			Process p;
+			p = Runtime.getRuntime().exec(cmd);
+
+			try {
+				Thread.sleep(6000);
+				if(getServerState()){
+					server.setServerState(true);
+				}else{
+					server.setServerState(false);
+					System.out.println("run server error!");
+					return ;
+				}
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
+	/**
+	 * å…³é—­æœåŠ¡å™¨
+	 * @return
+	 */
+	public Boolean shutdownServer(){
+		KillPortMethod kill=new KillPortMethod(server.getServerPort());
+		if(kill.haveProcess(server.getServerPort())){
+			kill.start();
+			server.setServerState(false);
+			return true;
+		}else{
+			System.out.println("æœåŠ¡å™¨å·²åœ¨å¤–éƒ¨å…³é—­ï¼");
+			server.setServerState(false);
+			return false;
+		}
+		
+		
+	}
+	
+	public void restartServer(){
+		shutdownServer();
+		runServer();
+
+	}
+	
+	/**
+	 * è·å–æœ¬æœºIPåœ°å€
 	 * @return
 	 */
 	public String getLocalHost(){
 		try {
 			InetAddress host=InetAddress.getLocalHost();
+			server.setServerIP(host.getHostAddress());
 			return host.getHostAddress();
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
@@ -34,14 +97,62 @@ public class ServerMgr {
 		}
 		
 	}
-	public void editPort(){
+	public int getPortNum(){
+		int port=xmlHelper.readPort();
+		server.setServerPort(port);
+		return port;
 		
 	}
-	public void startSMTP(){
+	public void editPort(int port){
+		xmlHelper.editPort(port);
+		server.setServerPort(port);
 		
 	}
-	public void startPOP3(){
+	public void setSMTPState(Boolean state){
+		xmlHelper.editSMTPState(state);
+		server.setSMTPState(state);
 		
 	}
+	public void setPOP3State(Boolean state){
+		xmlHelper.editPOP3State(state);
+		server.setPOP3State(state);
+		
+	}
+	public Boolean getServerState(){
+		System.out.println("&&&"+server.getServerPort());
+		KillPortMethod test=new KillPortMethod(server.getServerPort());
+		Boolean flag=test.haveProcess(server.getServerPort());
+	
+		server.setServerState(flag);
+		return flag;
+	}
+
+	public Boolean getSMTPState() {
+		// TODO Auto-generated method stub
+		String state=xmlHelper.readSMTPState();
+		if(state.equals("true")){
+			server.setSMTPState(true);
+			return true;
+		}else{
+			server.setSMTPState(false);
+			return false;
+		}
+			
+		
+	}
+
+	public Boolean getPOP3State() {
+		// TODO Auto-generated method stub
+		String state=xmlHelper.readPOP3State();
+		if(state.equals("true")){
+			server.setPOP3State(true);
+			return true;
+		}else{
+			server.setPOP3State(false);
+			return false;
+		}
+			
+	}
+	
 
 }
