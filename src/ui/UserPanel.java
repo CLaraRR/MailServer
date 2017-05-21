@@ -196,7 +196,14 @@ public class UserPanel implements ActionListener{
 			String username2=textFieldUsername.getText();
 			String pwd2=textFieldPwd.getText();
 			String state2=(String) comboBox.getSelectedItem();
-			
+			User user=null;
+			if(state2.equals("用户"))
+				user=new User(username2,pwd2,0);
+			else if(state2.equals("管理员"))
+				user=new User(username2,pwd2,1);
+			if(userMgr.findUser(user)){
+				
+			}
 			
 			break;
 		case "del":

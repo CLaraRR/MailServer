@@ -111,6 +111,10 @@ public class UserMgr {
 		return result;
 	}
 	
+//	public boolean findAdmin(){
+//		
+//	}
+	
 	//删除用户
 	public boolean deleteUser(String username) {
 		boolean result = false;
