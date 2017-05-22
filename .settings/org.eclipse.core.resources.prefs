@@ -5,6 +5,7 @@ encoding//src/entity/ServerMgr.java=UTF-8
 encoding//src/entity/User.java=UTF-8
 encoding//src/entity/UserMgr.java=UTF-8
 encoding//src/method/KillPortMethod.java=UTF-8
+encoding//src/method/MailSender.java=UTF-8
 encoding//src/method/XMLHelper.java=UTF-8
 encoding//src/ui/ControlPanel.java=UTF-8
 encoding//src/ui/CreatExcel.java=UTF-8

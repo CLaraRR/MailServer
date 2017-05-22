@@ -28,12 +28,10 @@ public class ControlPanel implements ActionListener{
 	private JButton startPOP3Button;
 	private ServerMgr serverMgr;
 
-	private String configFile;
 	
 	public ControlPanel(MainFrame mFrame){
 		detailPanel=mFrame.getDetatilPanel();
-		configFile="E:/james-binary-2.3.2.1/james-2.3.2.1/apps/james/SAR-INF/config.xml";
-		serverMgr=new ServerMgr(configFile);
+		serverMgr=new ServerMgr();
 
 	}
 

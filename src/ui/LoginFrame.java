@@ -39,6 +39,7 @@ public class LoginFrame extends JFrame implements ActionListener{
 	private JLabel lblNetpower;
 	private JLabel lblPoweredByNetpower;
 	
+	private String configFile;
 	private UserMgr userMgr;
 
 	/**
@@ -46,7 +47,7 @@ public class LoginFrame extends JFrame implements ActionListener{
 	 */
 	public static void main(String[] args) {
 		LoginFrame frame = new LoginFrame();
-		frame.setVisible(true);
+		
 	}
 
 	/**
@@ -54,7 +55,8 @@ public class LoginFrame extends JFrame implements ActionListener{
 	 */
 	public LoginFrame() {
 		init();
-		userMgr=new UserMgr();
+		configFile="E:/james-binary-2.3.2.1/james-2.3.2.1/apps/james/SAR-INF/config.xml";
+		userMgr=new UserMgr(configFile);
 
 	}
 
@@ -112,6 +114,8 @@ public class LoginFrame extends JFrame implements ActionListener{
 		lblPoweredByNetpower.setBounds(530, 542, 323, 31);
 		contentPane.add(lblPoweredByNetpower);
 		
+		setVisible(true);
+		
 	}
 
 	@Override
@@ -127,6 +131,7 @@ public class LoginFrame extends JFrame implements ActionListener{
 			Boolean flag=userMgr.verifyAdmin(adminname, pwd);
 			if(flag){
 				MainFrame.getInstance();
+				this.setVisible(false);
 			}else{
 				nametextField.setText("");
 				pwdtextField.setText("");

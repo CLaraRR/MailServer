@@ -30,6 +30,7 @@ public class MainFrame extends JFrame implements ChangeListener {
 	private JPanel panelUser;
 	private JPanel panelLog;
 	private JPanel panelSystem;
+	private JPanel panelSendmail;
 	private JPanel detailPanel;
 
 	
@@ -124,11 +125,14 @@ public class MainFrame extends JFrame implements ChangeListener {
 		panelUser = new JPanel();
 		modulePanel.addTab("用户管理", null, panelUser, null);
 		
-		panelLog = new JPanel();
-		modulePanel.addTab("日志管理", null, panelLog, null);
+//		panelLog = new JPanel();
+//		modulePanel.addTab("日志管理", null, panelLog, null);
+//		
+//		panelSystem = new JPanel();
+//		modulePanel.addTab("系统管理", null, panelSystem, null);
 		
-		panelSystem = new JPanel();
-		modulePanel.addTab("系统管理", null, panelSystem, null);
+		panelSendmail=new JPanel();
+		modulePanel.addTab("写邮件", null, panelSendmail, null);
 		
 		modulePanel.addChangeListener(this);
 		return modulePanel;
@@ -161,13 +165,17 @@ public class MainFrame extends JFrame implements ChangeListener {
 			new UserPanel(this).setDetailPanel(detailPanel);
 			break;
 					
+//		case 2:
+//			new LogPanel(this).setDetailPanel(detailPanel);
+//			break;
+//					
+//		case 3:
+//			new SystemPanel(this).setDetailPanel(detailPanel);
+//			break;	
+			
 		case 2:
-			new LogPanel(this).setDetailPanel(detailPanel);
+			new SendmailPanel(this).setDetailPanel(detailPanel);
 			break;
-					
-		case 3:
-			new SystemPanel(this).setDetailPanel(detailPanel);
-			break;	
 					
 		default:    
 			new ControlPanel(this).setDetailPanel(detailPanel);

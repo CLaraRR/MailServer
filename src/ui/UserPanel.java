@@ -30,12 +30,11 @@ public class UserPanel implements ActionListener{
 	private JTextField textFieldQuery;
 	private JTextField textFieldResult;
 	private UserMgr userMgr;
-	private String configFile;
+
 	public UserPanel(MainFrame mainFrame) {
 		// TODO Auto-generated constructor stub
 		detailPanel = mainFrame.getDetatilPanel();
-		configFile="E:/james-binary-2.3.2.1/james-2.3.2.1/apps/james/SAR-INF/config.xml";
-		userMgr=new UserMgr(configFile);
+		userMgr=new UserMgr();
 	}
 
 	public void setDetailPanel(JPanel detailPanel) {
@@ -203,10 +202,17 @@ public class UserPanel implements ActionListener{
 //			System.out.println(username);
 //			System.out.println(pwd);
 //			System.out.println(state);
+			int result=1;
 			if(state.equals("用户"))
-				userMgr.addUser(new User(username,pwd,0));
+				result=userMgr.addUser(new User(username,pwd,0));
 			else if(state.equals("管理员"))
-				userMgr.addUser(new User(username,pwd,1));
+				result=userMgr.addUser(new User(username,pwd,1));
+			if(result==2){
+				JOptionPane.showMessageDialog(detailPanel, "添加成功！", "消息",JOptionPane.DEFAULT_OPTION);
+				
+			}else{
+				JOptionPane.showMessageDialog(detailPanel, "添加失败！", "消息",JOptionPane.WARNING_MESSAGE); 
+			}
 			refreshOperationPanel();
 			break;
 		case "edit":
@@ -218,7 +224,13 @@ public class UserPanel implements ActionListener{
 				
 				user=new User(username2,pwd2,0);
 				if(userMgr.findUser(user)){
-					userMgr.editUser(user);
+				
+					int result2=userMgr.editUser(user);
+					if(result2==2){
+						JOptionPane.showMessageDialog(detailPanel, "更改成功！", "消息",JOptionPane.DEFAULT_OPTION); 
+					}else{
+						JOptionPane.showMessageDialog(detailPanel, "更改失败！", "消息",JOptionPane.WARNING_MESSAGE); 
+					}
 				}else{
 					JOptionPane.showMessageDialog(detailPanel, "要先添加才能修改！", "消息",JOptionPane.WARNING_MESSAGE); 
 				}
@@ -226,7 +238,13 @@ public class UserPanel implements ActionListener{
 				
 				user=new User(username2,pwd2,1);
 				if(userMgr.findAdmin(username2)){
-					userMgr.editAdmin(user);
+					int result3=userMgr.editAdmin(user);
+					if(result3==2){
+						JOptionPane.showMessageDialog(detailPanel, "更改成功！", "消息",JOptionPane.DEFAULT_OPTION); 
+					}else{
+						JOptionPane.showMessageDialog(detailPanel, "更改失败！", "消息",JOptionPane.WARNING_MESSAGE); 
+					}
+					
 				}else{
 					JOptionPane.showMessageDialog(detailPanel, "要先添加才能修改！", "消息",JOptionPane.WARNING_MESSAGE); 
 				}
@@ -238,9 +256,19 @@ public class UserPanel implements ActionListener{
 			String username3=textFieldUsername.getText();
 			String state3=(String) comboBox.getSelectedItem();
 			if(state3.equals("用户")){
-				userMgr.deleteUser(username3);
+				Boolean flag=userMgr.deleteUser(username3);
+				if(flag){
+					JOptionPane.showMessageDialog(detailPanel, "删除成功！", "消息",JOptionPane.DEFAULT_OPTION);
+				}else{
+					JOptionPane.showMessageDialog(detailPanel, "删除失败！", "消息",JOptionPane.WARNING_MESSAGE);
+				}
 			}else if(userMgr.equals("管理员")){
-				userMgr.delAdmin(username3);
+				int result4=userMgr.delAdmin(username3);
+				if(result4==2){
+					JOptionPane.showMessageDialog(detailPanel, "删除成功！", "消息",JOptionPane.DEFAULT_OPTION);
+				}else{
+					JOptionPane.showMessageDialog(detailPanel, "删除失败！", "消息",JOptionPane.WARNING_MESSAGE);
+				}
 			}
 			refreshOperationPanel();
 			break;

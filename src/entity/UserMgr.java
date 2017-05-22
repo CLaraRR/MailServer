@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -47,6 +48,7 @@ public class UserMgr {
 			rset = stmt.executeQuery(sql);
 			while (rset.next()) 
 			{
+				//System.out.println("!!!"+rset.getString("username"));
 				user = new User(rset.getString("username"),rset.getString("pwdHash"),0);
 
 				userList.put(rset.getString("username"), user);
@@ -59,6 +61,33 @@ public class UserMgr {
 		} 
 		
 		return rset;
+	}
+	
+	public List<String> getUserList1() {
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rset = null;
+		User user = null;
+		List<String> users=new ArrayList<String>();
+		try {
+			conn = DBBean.getConnection();
+			String sql = "select * from users";
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(sql);
+			while (rset.next()) 
+			{
+				//System.out.println("!!!"+rset.getString("username"));
+				//user = new User(rset.getString("username"),rset.getString("pwdHash"),0);
+				users.add(rset.getString("username"));
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+
+		} 
+		
+		return users;
 	}
 	
 	/**
@@ -98,7 +127,7 @@ public class UserMgr {
 				//如果是管理员就插入到配置文件中
 				
 				xmlHelper.addAdministrator(newUser.getUsername(),newUser.getPsw());
-				
+				result = 2;
 			}
 			
 		}
@@ -207,10 +236,10 @@ public class UserMgr {
 	 * 编辑管理员
 	 * @param user
 	 */
-	public void editAdmin(User user) {
+	public int editAdmin(User user) {
 		// TODO Auto-generated method stub
-		xmlHelper.editAdministrator(user.getUsername(), user.getPsw());
-		
+		int result=xmlHelper.editAdministrator(user.getUsername(), user.getPsw());
+		return result;
 		
 	}
 	
@@ -218,9 +247,10 @@ public class UserMgr {
 	 * 删除管理员
 	 * @param username
 	 */
-	public void delAdmin(String username) {
+	public int  delAdmin(String username) {
 		// TODO Auto-generated method stub
-		xmlHelper.delAdministrator(username);
+		int result=xmlHelper.delAdministrator(username);
+		return result;
 	}
 	
 	/**
@@ -244,9 +274,11 @@ public class UserMgr {
 	 * @return
 	 */
 	public Boolean verifyAdmin(String adminname,String pwd){
-		List<String> account=xmlHelper.readAdministrator(adminname);
-		if(account!=null){
-			if(pwd.equals(account.get(1)))
+		System.out.println("@@@"+adminname);
+		//List<String> account=xmlHelper.readAdministrator(adminname);
+		User user=getAdmin(adminname);
+		if(user!=null){
+			if(pwd.equals(user.getPsw()))
 				return true;
 			else
 				return false;

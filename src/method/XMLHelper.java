@@ -70,6 +70,19 @@ public class XMLHelper {
         return Integer.parseInt(port);
 	}
 	
+
+	/**
+	 * 读取配置文件中服务器名字
+	 * @return
+	 */
+	public String readServerName() {
+		// TODO Auto-generated method stub
+		Element first = root.element("James");
+		Element snsElement = first.element("servernames");
+		Element snElement = snsElement.element("servername");
+		String name=snElement.getText();
+		return name;
+	}
 	
 	/**
 	 * 读取配置文件中james服务器的DNS地址
@@ -143,6 +156,7 @@ public class XMLHelper {
 	 */
 	public List<String> readAdministrator(String username) {
 		// TODO Auto-generated method stub
+		System.out.println("###"+username);
 		List<String> account=new ArrayList<String>();
 		Element first = root.element("remotemanager");
         Element handlerElement=first.element("handler");
@@ -189,13 +203,14 @@ public class XMLHelper {
 	 * 设置服务器端口号
 	 * @param port
 	 */
-	public void editPort(int port){
+	public int  editPort(int port){
+		int result=1;
 		Element first = root.element("remotemanager");
         Element portElement=first.element("port");
 //        String port=portElement.getText();
         portElement.setText(String.valueOf(port));
-        saveDocument();
-		
+        result=saveDocument();
+		return result;
 		
 	}
 	
@@ -204,12 +219,14 @@ public class XMLHelper {
 	 * @param port
 	 */
 	
-	public void editSMTPPort(int port){
+	public int editSMTPPort(int port){
+		int result=1;
 		Element first = root.element("smtpserver");
         Element portElement=first.element("port");
 //        String port=portElement.getText();
         portElement.setText(String.valueOf(port));
-        saveDocument();
+        result=saveDocument();
+        return result;
         
 	}
 	
@@ -218,12 +235,14 @@ public class XMLHelper {
 	 * @param state
 	 */
 	
-	public void editSMTPState(Boolean state){
+	public int editSMTPState(Boolean state){
+		int result=1;
 		Element first = root.element("smtpserver");
 //        String attr=first.attributeValue("enabled");
         Attribute attr=first.attribute("enabled");
         attr.setData(state);
-        saveDocument();
+        result=saveDocument();
+        return result;
 	}
 	
 	
@@ -231,12 +250,14 @@ public class XMLHelper {
 	 * 设置POP3端口号
 	 * @param port
 	 */
-	public void editPOP3Port(int port){
+	public int editPOP3Port(int port){
+		int result=1;
 		Element first = root.element("pop3server");
         Element portElement=first.element("port");
 //        String port=portElement.getText();
         portElement.setText(String.valueOf(port));
-        saveDocument();
+        result=saveDocument();
+        return result;
 	}
 	
 	
@@ -245,13 +266,15 @@ public class XMLHelper {
 	 * @param state
 	 */
 	
-	public void editPOP3State(Boolean state)
+	public int editPOP3State(Boolean state)
 	{
+		int result=1;
 		Element first = root.element("pop3server");
 //      String attr=first.attributeValue("enabled");
 		Attribute attr=first.attribute("enabled");
 		attr.setData(state);
-		saveDocument();
+		result=saveDocument();
+		return result;
 	}
 	
 	
@@ -260,7 +283,8 @@ public class XMLHelper {
 	 * @param username
 	 * @param psw
 	 */
-	public void editAdministrator(String username,String psw){
+	public int editAdministrator(String username,String psw){
+		int result=1;
 		Element first = root.element("remotemanager");
         Element handlerElement=first.element("handler");
 //        String port=portElement.getText();
@@ -274,7 +298,8 @@ public class XMLHelper {
         		break;
         	}
         }
-        saveDocument();
+        result=saveDocument();
+        return result;
 	}
 	
 	/**
@@ -282,8 +307,9 @@ public class XMLHelper {
 	 * @param username
 	 * @param psw
 	 */
-	public void addAdministrator(String username, String psw) {
+	public int addAdministrator(String username, String psw) {
 		// TODO Auto-generated method stub
+		int result=1;
 		Element first = root.element("remotemanager");
         Element handlerElement=first.element("handler");
 //        String port=portElement.getText();
@@ -291,8 +317,8 @@ public class XMLHelper {
         Element account=adElement.addElement("account");
         account.addAttribute("login", username);
         account.addAttribute("password", psw);
-        saveDocument();
-		
+        result=saveDocument();
+		return result;
 		
 	}
 	
@@ -301,8 +327,9 @@ public class XMLHelper {
 	 * @param username3
 	 */
 	
-	public void delAdministrator(String username) {
+	public int delAdministrator(String username) {
 		// TODO Auto-generated method stub
+		int result=1;
 		Element first = root.element("remotemanager");
         Element handlerElement=first.element("handler");
 //        String port=portElement.getText();
@@ -315,11 +342,13 @@ public class XMLHelper {
         		break;
         	}
         }
-        saveDocument();
+        result=saveDocument();
+        return result;
 	}
 
 	
-	public void saveDocument(){
+	public int saveDocument(){
+		int result=1;
 		try {
 			FileWriter fw=new FileWriter(xmlFile);
 			//Writer osWrite=new OutputStreamWriter(new FileOutputStream(xmlFile));//创建输出流  
@@ -329,11 +358,12 @@ public class XMLHelper {
 			writer.write(document);
 			writer.flush();  
 			writer.close(); 
+			result=2;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}//把document写入xmlFile指定的文件(可以为被解析的文件或者新创建的文件)    
-		
+		return result;
 	}
 	
 	public static void main(String[] args){
@@ -358,10 +388,12 @@ public class XMLHelper {
 //		test.editSMTPPort(250);
 //		test.editPort(5555);
 		//test.delAdministrator("jack");
-		test.editAdministrator("clara", "123456");
-		
+		//test.editAdministrator("clara", "123456");
+		System.out.println(test.readServerName());
 		
 	}
+
+
 
 
 

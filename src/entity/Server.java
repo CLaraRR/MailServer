@@ -9,6 +9,7 @@ package entity;
 public class Server {
 	public String serverIP;//服务器IP
 	public int serverPort;//服务器端口
+	public String serverName;//服务器域名
 	public Boolean isServerRun;//服务器是否开启
 	public Boolean isSMTPRun;//SMTP服务是否开启
 	public Boolean isPOP3Run;//POP3服务是否开启
@@ -28,13 +29,14 @@ public class Server {
 	public Server(){
 		
 	}
-	public Server(String ip,int port,Boolean isServerRun,Boolean isSMTPRun,Boolean isPOP3Run){
+	public Server(String ip,int port,Boolean isServerRun,Boolean isSMTPRun,Boolean isPOP3Run,String serverName){
 
 		this.serverIP=ip;
 		this.serverPort=port;
 		this.isServerRun=isServerRun;
 		this.isSMTPRun=isSMTPRun;
 		this.isPOP3Run=isPOP3Run;
+		this.serverName=serverName;
 		
 	}
 	public void setServerIP(String ip){
@@ -49,6 +51,14 @@ public class Server {
 	}
 	public int getServerPort(){
 		return this.serverPort;
+	}
+	
+	
+	public void setServerName(String serverName){
+		this.serverName=serverName;
+	}
+	public String getServerName(){
+		return this.serverName;
 	}
 	
 	public void setServerState(Boolean flag){

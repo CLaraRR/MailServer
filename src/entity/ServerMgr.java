@@ -19,9 +19,15 @@ public class ServerMgr {
 	public Server server;
 	private XMLHelper xmlHelper;
 	
-	
+	private String configFile="E:/james-binary-2.3.2.1/james-2.3.2.1/apps/james/SAR-INF/config.xml";
 	
 	public ServerMgr(String configFile){
+		server=Server.getInstance();
+		this.configFile=configFile;
+		xmlHelper=new XMLHelper(configFile);
+	}
+	
+	public ServerMgr(){
 		server=Server.getInstance();
 		xmlHelper=new XMLHelper(configFile);
 	}
@@ -152,6 +158,12 @@ public class ServerMgr {
 			return false;
 		}
 			
+	}
+	
+	
+	public String getServerName(){
+		String name=xmlHelper.readServerName();
+		return name;
 	}
 	
 
