@@ -138,6 +138,54 @@ public class XMLHelper {
 	
 	
 	/**
+	 * 
+	 * @param username
+	 */
+	public List<String> readAdministrator(String username) {
+		// TODO Auto-generated method stub
+		List<String> account=new ArrayList<String>();
+		Element first = root.element("remotemanager");
+        Element handlerElement=first.element("handler");
+//        String port=portElement.getText();
+        Element adElement=handlerElement.element("administrator_accounts");
+        List<Element> adminList=adElement.elements();
+        
+        for(Element each:adminList){
+        	if(each.attributeValue("login").equals(username)){
+        		account.add(username);
+        		account.add(each.attributeValue("password"));
+        		System.out.println(username);
+        		System.out.println(each.attributeValue("password"));
+        		break;
+        	}
+        	
+        }
+        return account;
+	}
+	
+	/**
+	 * 是否存在该管理员账户
+	 * @param username
+	 * @return
+	 */
+	
+	public Boolean haveAccount(String username){
+		Element first = root.element("remotemanager");
+        Element handlerElement=first.element("handler");
+//        String port=portElement.getText();
+        Element adElement=handlerElement.element("administrator_accounts");
+        List<Element> adminList=adElement.elements();
+        
+        for(Element each:adminList){
+        	if(each.attributeValue("login").equals(username)){
+        		return true;
+        	}
+        }
+        return false;
+        
+	}
+	
+	/**
 	 * 设置服务器端口号
 	 * @param port
 	 */
@@ -207,6 +255,27 @@ public class XMLHelper {
 	}
 	
 	
+	/**
+	 * 修改管理员密码
+	 * @param username
+	 * @param psw
+	 */
+	public void editAdministrator(String username,String psw){
+		Element first = root.element("remotemanager");
+        Element handlerElement=first.element("handler");
+//        String port=portElement.getText();
+        Element adElement=handlerElement.element("administrator_accounts");
+        List<Element> adminList=adElement.elements();
+        
+        for(Element each:adminList){
+        	if(each.attributeValue("login").equals(username)){
+        		Attribute attr=each.attribute("password");
+        		attr.setData(psw);
+        		break;
+        	}
+        }
+        saveDocument();
+	}
 	
 	/**
 	 * 添加管理员账户
@@ -227,6 +296,28 @@ public class XMLHelper {
 		
 	}
 	
+	/**
+	 * 删除管理员账户
+	 * @param username3
+	 */
+	
+	public void delAdministrator(String username) {
+		// TODO Auto-generated method stub
+		Element first = root.element("remotemanager");
+        Element handlerElement=first.element("handler");
+//        String port=portElement.getText();
+        Element adElement=handlerElement.element("administrator_accounts");
+        List<Element> adminList=adElement.elements();
+        
+        for(Element each:adminList){
+        	if(each.attributeValue("login").equals(username)){
+        		adElement.remove(each);
+        		break;
+        	}
+        }
+        saveDocument();
+	}
+
 	
 	public void saveDocument(){
 		try {
@@ -254,20 +345,26 @@ public class XMLHelper {
 //		List<String> dnsList=test.readDNS();
 //		System.out.println(dnsList);
 		
-		String pop3state=test.readPOP3State();
-		System.out.println(pop3state);
+//		String pop3state=test.readPOP3State();
+//		System.out.println(pop3state);
+//		
+//		System.out.println(test.readPOP3Port());
+//		
+//
+//		test.editPOP3State(false);
+//		test.editPOP3Port(1100);
+//		
+//		test.editSMTPState(false);
+//		test.editSMTPPort(250);
+//		test.editPort(5555);
+		//test.delAdministrator("jack");
+		test.editAdministrator("clara", "123456");
 		
-		System.out.println(test.readPOP3Port());
-		
-
-		test.editPOP3State(false);
-		test.editPOP3Port(1100);
-		
-		test.editSMTPState(false);
-		test.editSMTPPort(250);
-		test.editPort(5555);
 		
 	}
+
+
+
 
 
 

@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
+import java.util.List;
 
 import org.apache.james.security.DigestUtil;
 
@@ -60,7 +61,11 @@ public class UserMgr {
 		return rset;
 	}
 	
-	//添加用户
+	/**
+	 * 添加用户
+	 * @param newUser
+	 * @return
+	 */
 	public int addUser(User newUser) {
 		int result = 0; //
 		if (findUser(newUser)) {//先查找有没有这个用户。调用下面的findUser函数
@@ -100,7 +105,11 @@ public class UserMgr {
 		return result;
 	}
 	
-	//查看数据库中是否已有记录
+	/**
+	 * 查看数据库中是否已有记录
+	 * @param user
+	 * @return
+	 */
 	public boolean findUser(User user) {
 		boolean result = false;
 		
@@ -111,11 +120,22 @@ public class UserMgr {
 		return result;
 	}
 	
-//	public boolean findAdmin(){
-//		
-//	}
 	
-	//删除用户
+	/**
+	 * 是否有该管理员
+	 * @param adminname
+	 * @return
+	 */
+	public boolean findAdmin(String adminname){
+		Boolean flag=xmlHelper.haveAccount(adminname);
+		return flag;
+	}
+	
+	/**
+	 * 删除用户
+	 * @param username
+	 * @return
+	 */
 	public boolean deleteUser(String username) {
 		boolean result = false;
 		String sql = "delete from users where username =('" + username
@@ -125,6 +145,12 @@ public class UserMgr {
 	    	System.out.println("delete user:" + sql);
 		return result;
 	}
+	
+	/**
+	 * 获取用户
+	 * @param username
+	 * @return
+	 */
 
 	public User getUser(String username) {
 		String sql = "select * from users where username=('" + username
@@ -152,10 +178,21 @@ public class UserMgr {
 		return 	user;
 	}
 	
-
+	/**
+	 * 编辑用户
+	 * @param user
+	 * @return
+	 */
 	public int editUser(User user) {
 		int result = 1;
-		String sql = "update users set pwdHash ='" + user.getPsw()
+		String pwdHash=null;
+		try {
+			pwdHash=DigestUtil.digestString(user.getPsw(), "SHA");
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String sql = "update users set pwdHash ='" + pwdHash
 				+ "' " + "where username=('"
 				+ user.getUsername() + "')";
 		//System.out.println("edit user:" + sql);
@@ -164,6 +201,59 @@ public class UserMgr {
 		}
 
 		return result;
+	}
+	
+	/**
+	 * 编辑管理员
+	 * @param user
+	 */
+	public void editAdmin(User user) {
+		// TODO Auto-generated method stub
+		xmlHelper.editAdministrator(user.getUsername(), user.getPsw());
+		
+		
+	}
+	
+	/**
+	 * 删除管理员
+	 * @param username
+	 */
+	public void delAdmin(String username) {
+		// TODO Auto-generated method stub
+		xmlHelper.delAdministrator(username);
+	}
+	
+	/**
+	 * 获取管理员账号密码
+	 * @param username
+	 * @return
+	 */
+	public User getAdmin(String username) {
+		// TODO Auto-generated method stub
+		List<String> account=xmlHelper.readAdministrator(username);
+		if(account!=null)
+			return new User(account.get(0),account.get(1),1);
+		else
+			return null;
+	}
+	
+	/**
+	 * 验证管理员账号密码
+	 * @param adminname
+	 * @param pwd
+	 * @return
+	 */
+	public Boolean verifyAdmin(String adminname,String pwd){
+		List<String> account=xmlHelper.readAdministrator(adminname);
+		if(account!=null){
+			if(pwd.equals(account.get(1)))
+				return true;
+			else
+				return false;
+		}else{
+			return false;
+		}
+
 	}
 	
 }

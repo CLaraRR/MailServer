@@ -8,6 +8,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
@@ -26,6 +27,8 @@ public class UserPanel implements ActionListener{
 	private JTextField textFieldUsername;
 	private JTextField textFieldPwd;
 	private JComboBox<String> comboBox;
+	private JTextField textFieldQuery;
+	private JTextField textFieldResult;
 	private UserMgr userMgr;
 	private String configFile;
 	public UserPanel(MainFrame mainFrame) {
@@ -62,7 +65,7 @@ public class UserPanel implements ActionListener{
 		labelQ.setBounds(514, 414, 157, 15);
 		detailPanel.add(labelQ);
 		
-		JTextField textFieldQuery = new JTextField();
+		textFieldQuery = new JTextField();
 		textFieldQuery.setBounds(514, 449, 246, 31);
 		detailPanel.add(textFieldQuery);
 		textFieldQuery.setColumns(10);
@@ -70,12 +73,17 @@ public class UserPanel implements ActionListener{
 		JButton buttonQuery = new JButton("查询");
 		buttonQuery.setFont(new Font("黑体", Font.PLAIN, 14));
 		buttonQuery.setBounds(781, 453, 93, 23);
+		buttonQuery.setActionCommand("query");
+		buttonQuery.addActionListener(this);
 		detailPanel.add(buttonQuery);
 		
-		JButton buttonRefresh = new JButton("刷新表单");
-		buttonRefresh.setFont(new Font("黑体", Font.PLAIN, 14));
-		buttonRefresh.setBounds(514, 10, 93, 23);
-		detailPanel.add(buttonRefresh);
+		textFieldResult = new JTextField();
+		textFieldResult.setEditable(false);
+		textFieldResult.setBounds(514, 490, 360, 82);
+		textFieldResult.setBorder(null);
+		detailPanel.add(textFieldResult);
+		textFieldResult.setColumns(10);
+
 		
 	}
 
@@ -85,7 +93,13 @@ public class UserPanel implements ActionListener{
 	 */
 	private void setOperationPanel(JPanel detailPanel) {
 		// TODO Auto-generated method stub
-
+		JButton buttonRefresh = new JButton("刷新表单");
+		buttonRefresh.setFont(new Font("黑体", Font.PLAIN, 14));
+		buttonRefresh.setBounds(514, 10, 93, 23);
+		buttonRefresh.setActionCommand("refresh");
+		buttonRefresh.addActionListener(this);
+		detailPanel.add(buttonRefresh);
+		
 		JLabel labelOpr = new JLabel("操作");
 		labelOpr.setFont(new Font("黑体", Font.BOLD, 16));
 		labelOpr.setBounds(514, 42, 54, 23);
@@ -179,6 +193,9 @@ public class UserPanel implements ActionListener{
 		String event=e.getActionCommand();
 		
 		switch(event){
+		case "refresh":
+			setTablePanel(detailPanel);
+			break;
 		case "add":
 			String username=textFieldUsername.getText();
 			String pwd=textFieldPwd.getText();
@@ -190,30 +207,68 @@ public class UserPanel implements ActionListener{
 				userMgr.addUser(new User(username,pwd,0));
 			else if(state.equals("管理员"))
 				userMgr.addUser(new User(username,pwd,1));
-			
+			refreshOperationPanel();
 			break;
 		case "edit":
 			String username2=textFieldUsername.getText();
 			String pwd2=textFieldPwd.getText();
 			String state2=(String) comboBox.getSelectedItem();
 			User user=null;
-			if(state2.equals("用户"))
-				user=new User(username2,pwd2,0);
-			else if(state2.equals("管理员"))
-				user=new User(username2,pwd2,1);
-			if(userMgr.findUser(user)){
+			if(state2.equals("用户")){
 				
+				user=new User(username2,pwd2,0);
+				if(userMgr.findUser(user)){
+					userMgr.editUser(user);
+				}else{
+					JOptionPane.showMessageDialog(detailPanel, "要先添加才能修改！", "消息",JOptionPane.WARNING_MESSAGE); 
+				}
+			}else if(state2.equals("管理员")){
+				
+				user=new User(username2,pwd2,1);
+				if(userMgr.findAdmin(username2)){
+					userMgr.editAdmin(user);
+				}else{
+					JOptionPane.showMessageDialog(detailPanel, "要先添加才能修改！", "消息",JOptionPane.WARNING_MESSAGE); 
+				}
 			}
-			
+				
+			refreshOperationPanel();
 			break;
 		case "del":
-			
+			String username3=textFieldUsername.getText();
+			String state3=(String) comboBox.getSelectedItem();
+			if(state3.equals("用户")){
+				userMgr.deleteUser(username3);
+			}else if(userMgr.equals("管理员")){
+				userMgr.delAdmin(username3);
+			}
+			refreshOperationPanel();
 			break;
 		case "clear":
+			refreshOperationPanel();
+			break;
 			
+		case "query":
+			String username4=textFieldQuery.getText();
+			System.out.println(username4);
+			User user1=null;
+			user1=userMgr.getUser(username4);
+			if(user1!=null){
+				textFieldResult.setText("用户名："+user1.getUsername()+"\n"+"加密的密码："+user1.getPsw());
+			}else if((user1=userMgr.getAdmin(username4))!=null){
+				textFieldResult.setText("用户名："+user1.getUsername()+"\n"+"密码："+user1.getPsw());
+			}
 			break;
 			
 		}
+	}
+
+	private void refreshOperationPanel() {
+		// TODO Auto-generated method stub
+		textFieldUsername.setText("");
+		textFieldPwd.setText("");
+		comboBox.setSelectedIndex(0);
+		
 	}
 	
 

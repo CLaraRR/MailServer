@@ -26,6 +26,7 @@ public class UserPanel2 extends JFrame {
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
+	private JTextField textField_4;
 
 	/**
 	 * Launch the application.
@@ -141,5 +142,12 @@ public class UserPanel2 extends JFrame {
 		textField_3.setBounds(514, 317, 66, 21);
 		contentPane.add(textField_3);
 		textField_3.setColumns(10);
+		
+		textField_4 = new JTextField();
+		textField_4.setEditable(false);
+		textField_4.setBounds(514, 490, 360, 82);
+		textField_4.setBorder(null);
+		contentPane.add(textField_4);
+		textField_4.setColumns(10);
 	}
 }
